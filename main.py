@@ -1,4 +1,5 @@
 import asyncio
+import navigation as nav
 from aiogram import Bot, Dispatcher,executor
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery    
 
@@ -8,37 +9,56 @@ dp = Dispatcher(bot,loop=loop)
 
 @dp.message_handler(commands=['start'])
 async def command_start_handler(message: Message):
+    text, reply_markup = nav.get_reply_message({"new_state":1})
     await bot.send_message(
         chat_id= message.from_user.id,
-        text='Привет, я Бот для просмотра расписания КПК,нажми на кнопку:',
-        reply_markup= InlineKeyboardMarkup(
-            inline_keyboard= [[InlineKeyboardButton(text='Вывести список групп', callback_data='11')]]
+        text=text,
+        reply_markup= reply_markup
         )
-    )
+    # if callback_query.data == '2':
+    #     await bot.send_message(
+    #         chat_id=message.from_user.id,
+    #         text="Monstr",
+    #         reply_markup= InlineKeyboardMarkup(
+    #             inline_keyboard= [[InlineKeyboardButton(text='Назад', callback_data='1')]]
+    #         )
+    #     )
 @dp.callback_query_handler(lambda callback_query: callback_query.data)
 async def callback_query (callback_query : CallbackQuery):
-    if callback_query.data == '11':
-        await bot.send_message(
-            chat_id = callback_query.from_user.id,
-            text= "Список Групп:",
-            reply_markup = InlineKeyboardMarkup(
-                inline_keyboard=[
-                [InlineKeyboardButton(text="2-1P11",callback_data='1'),
-                InlineKeyboardButton(text="3-2P9",callback_data='2'),
-                InlineKeyboardButton(text="Назад", callback_data='3')]            
-                ])
-        )
-    if callback_query.data == '3':
-        await bot.send_message(
+    context = eval(callback_query.data)
+    text, reply_markup = nav.get_reply_message(context)
+    await bot.send_message(
         chat_id= callback_query.from_user.id,
-        text='Привет, я Бот для просмотра расписания КПК,нажми на кнопку:',
-        reply_markup= InlineKeyboardMarkup(
-            inline_keyboard= [[InlineKeyboardButton(text='Вывести список групп', callback_data='11')]]
+        text=text,
+        reply_markup= reply_markup
         )
-    )
+    # if context['new_state'] == 11:
+    #     await bot.send_message(
+    #     chat_id= callback_query.from_user.id,
+    #     text=text,
+    #     reply_markup= reply_markup
+    # )
+    # if context['new_state'] == 1:
+    #     await bot.send_message(
+    #     chat_id= callback_query.from_user.id,
+    #     text=text,
+    #     reply_markup= reply_markup
+    # )
+    # if context['new_state'] == 2:
+    #     await bot.send_message(
+    #     chat_id= callback_query.from_user.id,
+    #     text=text,
+    #     reply_markup= reply_markup
+    # )
+    # if context['new_state'] == 3:
+    #     await bot.send_message(
+    #     chat_id= callback_query.from_user.id,
+    #     text=text,
+    #     reply_markup= reply_markup
+    # )
     # elif callback_query.data == '12':
     #     buttons=[]
-    #     for list in list:
+    #    for list in list:
     #         buttons.append([InlineKeyboardButton(text=list)])
     #     await bot.send_message(
     #         chat_id = callback_query.from_user.id,
