@@ -8,3 +8,13 @@
   "static_buttons":
     "⬅":
       "new_state": 1
+111:
+  "message": "'Расписание вашей группы:'"
+  "static_buttons":
+    "⬅":
+      "new_state": 11
+112:
+  "message": "'Расписание вашей группы:'"
+  "static_buttons":
+    "⬅":
+      "new_state": 11
