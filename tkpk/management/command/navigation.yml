@@ -1,0 +1,20 @@
+1:
+  "message": "'Главное меню'"
+  "static_buttons":
+    "Вывести список групп":
+      "new_state": 11
+11:
+  "message": "'Список групп:'"
+  "static_buttons":
+    "⬅":
+      "new_state": 1
+111:
+  "message": "'Расписание вашей группы:'"
+  "static_buttons":
+    "⬅":
+      "new_state": 11
+112:
+  "message": "'Расписание вашей группы:'"
+  "static_buttons":
+    "⬅":
+      "new_state": 11
